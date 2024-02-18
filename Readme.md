@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Aleksey Fedorov](https://up.htmlacademy.ru/javascript/31/user/2402517).
-* Наставник: `Неизвестно`.
+* Наставник: [Артём Новоселов](https://up.htmlacademy.ru/javascript/31/user/1195129).
 
 ---
 
