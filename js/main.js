@@ -21,14 +21,11 @@ const PHOTOS_DESCRIPTIONS = [
 ];
 const COMMENT_MESSAGES = [
   'Всё отлично!',
-  'В целом всё неплохо.',
-  'Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
-  'В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают.',
-  'Как можно было поймать такой неудачный момент?!'
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 const USER_NAMES = [
   'Элизабет',
@@ -48,15 +45,54 @@ const USER_NAMES = [
   'Шарлотта'
 ];
 
-const photo = {
-  id: 1,
-  url: 'photos/1.jpg',
-  description: 'какой-то текст',
-  likes: 15,
-  comments: [{
-    id: 135,
-    avatar: 'img/avatar-6.svg',
-    message: 'text. text.',
-    name: 'Text'
-  }]
+const getRandomInteger = (min, max) => {
+  const result = Math.random() * (max - min + 1) + min;
+  return Math.floor(result);
 };
+
+const generatePhotoDescription = (maxSentences) => {
+  const sentencesCount = getRandomInteger(1, maxSentences);
+  const photoDesctiptions = [];
+
+  for (let i = 0; i < sentencesCount; i++) {
+    const randomDescription = PHOTOS_DESCRIPTIONS[getRandomInteger(0, PHOTOS_DESCRIPTIONS.length - 1)];
+
+    if (!photoDesctiptions.includes(randomDescription)) {
+      photoDesctiptions.push(randomDescription);
+    } else {
+      i--;
+    }
+  }
+
+  return photoDesctiptions.join(' ');
+};
+
+let commentId = 1;
+const createComment = () => () => {
+  const comment = {};
+  comment.id = commentId;
+  comment.avatar = `img/avatar-${getRandomInteger(1, 6)}.svg`;
+  comment.message = COMMENT_MESSAGES[getRandomInteger(0, COMMENT_MESSAGES.length - 1)];
+  comment.name = USER_NAMES[getRandomInteger(0, USER_NAMES.length - 1)];
+  commentId++;
+
+  return comment;
+};
+
+const createPhoto = () => {
+  let lastId = 1;
+
+  return () => {
+    const photo = {};
+    photo.id = lastId;
+    photo.url = `photos/${lastId}.jpg`;
+    photo.description = generatePhotoDescription(3);
+    photo.likes = getRandomInteger(MIN_LIKES, MAX_LIKES);
+    photo.comments = Array.from({length: getRandomInteger(0, MAX_COMMENTS)}, createComment());
+    lastId++;
+    return photo;
+  };
+};
+
+// const photos =
+Array.from({length: PHOTOS_COUNT}, createPhoto());
