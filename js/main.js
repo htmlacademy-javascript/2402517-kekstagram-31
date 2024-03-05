@@ -68,7 +68,7 @@ const generatePhotoDescription = (maxSentences) => {
 };
 
 let commentId = 1;
-const createComment = () => () => {
+const createComment = () => {
   const comment = {};
   comment.id = commentId;
   comment.avatar = `img/avatar-${getRandomInteger(1, 6)}.svg`;
@@ -88,7 +88,7 @@ const createPhoto = () => {
     photo.url = `photos/${lastId}.jpg`;
     photo.description = generatePhotoDescription(3);
     photo.likes = getRandomInteger(MIN_LIKES, MAX_LIKES);
-    photo.comments = Array.from({length: getRandomInteger(0, MAX_COMMENTS)}, createComment());
+    photo.comments = Array.from({length: getRandomInteger(0, MAX_COMMENTS)}, createComment);
     lastId++;
     return photo;
   };
