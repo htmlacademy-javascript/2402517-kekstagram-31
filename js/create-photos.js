@@ -5,7 +5,7 @@ const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const MAX_COMMENTS = 30;
 const MAX_DESCRIPTION_SENTENCES = 3;
-const PHOTOS_DESCRIPTIONS = [
+const PHOTO_DESCRIPTIONS = [
   'Фотография обладает гармонией контрастов: игра света и тени создает уникальную эмоциональную глубину.',
   'Захваченный момент уникальной симметрии: композиция из линий и форм создает впечатляющую визуальную абстракцию.',
   'Эта фотография запечатлела движение во времени: размытые контуры создают ощущение динамики и энергии.',
@@ -50,19 +50,19 @@ const USER_NAMES = [
 
 const generatePhotoDescription = (maxSentences) => {
   const sentencesCount = getRandomInteger(1, maxSentences);
-  const photoDesctiptions = [];
+  const photoDescriptionIndexes = [];
 
   for (let i = 0; i < sentencesCount; i++) {
-    const randomDescription = PHOTOS_DESCRIPTIONS[getRandomInteger(0, PHOTOS_DESCRIPTIONS.length - 1)];
+    const randomDescriptionIndex = getRandomInteger(0, PHOTO_DESCRIPTIONS.length - 1);
 
-    if (!photoDesctiptions.includes(randomDescription)) {
-      photoDesctiptions.push(randomDescription);
+    if (!photoDescriptionIndexes.includes(randomDescriptionIndex)) {
+      photoDescriptionIndexes.push(randomDescriptionIndex);
     } else {
       i--;
     }
   }
 
-  return photoDesctiptions.join(' ');
+  return photoDescriptionIndexes.map((index) => PHOTO_DESCRIPTIONS[index]).join(' ');
 };
 
 let commentId = 1;
