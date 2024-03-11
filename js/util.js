@@ -29,5 +29,4 @@ const extractNumbers = (string) => {
 };
 extractNumbers(-1.5); // Вызов для линтера
 
-// EXPORT
 export {getRandomInteger};
