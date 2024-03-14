@@ -3,7 +3,7 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-const getTemplateElement = (templateId, element) => document.querySelector(`#${templateId}`).content.querySelector(`.${element}`);
+const getTemplateElement = (templateId, elementClass) => document.querySelector(`#${templateId}`).content.querySelector(`.${elementClass}`);
 
 const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 checkLength('1', 1); // Вызов для линтера
