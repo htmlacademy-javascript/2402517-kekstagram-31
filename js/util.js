@@ -5,6 +5,10 @@ const getRandomInteger = (min, max) => {
 
 const getTemplateElement = (templateId, elementClass) => document.querySelector(`#${templateId}`).content.querySelector(`.${elementClass}`);
 
+const showOrHide = (element) => {
+  element.classList.toggle('hidden');
+};
+
 const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 checkLength('1', 1); // Вызов для линтера
 
@@ -33,3 +37,4 @@ extractNumbers(-1.5); // Вызов для линтера
 
 export {getRandomInteger};
 export {getTemplateElement};
+export {showOrHide};
