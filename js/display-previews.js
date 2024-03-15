@@ -23,9 +23,6 @@ const renderPreviewList = () => {
 
   previewList.append(previewListFragment);
 };
+renderPreviewList();
 
-const clearPreviewList = () => {
-  previewList.innerHTML = '';
-};
-
-export {renderPreviewList, clearPreviewList};
+export {renderPreviewList};
