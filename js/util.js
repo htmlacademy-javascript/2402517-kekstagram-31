@@ -3,6 +3,8 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
+const getTemplateElement = (templateId, elementClass) => document.querySelector(`#${templateId}`).content.querySelector(`.${elementClass}`);
+
 const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 checkLength('1', 1); // Вызов для линтера
 
@@ -29,5 +31,5 @@ const extractNumbers = (string) => {
 };
 extractNumbers(-1.5); // Вызов для линтера
 
-// EXPORT
 export {getRandomInteger};
+export {getTemplateElement};
