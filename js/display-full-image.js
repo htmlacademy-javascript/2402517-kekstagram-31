@@ -15,6 +15,8 @@ const onDocumentKeydown = (evt) => {
 function openBigPicture () {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
+  bigPicture.querySelector('.social__comment-count').classList.add('hidden');
+  bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
   document.addEventListener('keydown', onDocumentKeydown);
 }
@@ -22,6 +24,8 @@ function openBigPicture () {
 function closeBigPicture () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
+  bigPicture.querySelector('.social__comment-count').classList.remove('hidden');
+  bigPicture.querySelector('.comments-loader').classList.remove('hidden');
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
