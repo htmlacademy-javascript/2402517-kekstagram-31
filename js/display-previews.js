@@ -8,10 +8,13 @@ const previewListFragment = document.createDocumentFragment();
 
 photos.forEach(({url, description, likes, comments}) => {
   const preview = previewTemplate.cloneNode(true);
-  preview.querySelector('.picture__img').src = url;
-  preview.querySelector('.picture__img').alt = description;
+  const previewImage = preview.querySelector('.picture__img');
+
+  previewImage.src = url;
+  previewImage.alt = description;
   preview.querySelector('.picture__likes').textContent = likes;
   preview.querySelector('.picture__comments').textContent = comments.length;
+
   previewListFragment.append(preview);
 });
 
