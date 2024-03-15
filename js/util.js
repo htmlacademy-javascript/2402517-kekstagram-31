@@ -9,6 +9,8 @@ const showOrHide = (element) => {
   element.classList.toggle('hidden');
 };
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 checkLength('1', 1); // Вызов для линтера
 
@@ -38,3 +40,4 @@ extractNumbers(-1.5); // Вызов для линтера
 export {getRandomInteger};
 export {getTemplateElement};
 export {showOrHide};
+export {isEscapeKey};
