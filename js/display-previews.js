@@ -26,4 +26,5 @@ const renderPreviewList = () => {
 };
 renderPreviewList();
 
+export {photos};
 export {renderPreviewList};

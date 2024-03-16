@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import {photos} from './display-previews.js';
 
 const body = document.body;
 const picturesContainer = document.querySelector('.pictures');
@@ -12,7 +13,19 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function openBigPicture () {
+function openBigPicture (evt) {
+  const commentShownCount = 6;
+  const previewId = Number(evt.target.parentNode.dataset.id);
+  const currentPhoto = photos.find((photo) => photo.id === previewId);
+  const bigPictureImage = bigPicture.querySelector('.big-picture__img').querySelector('img');
+
+  bigPictureImage.src = currentPhoto.url;
+  bigPictureImage.alt = currentPhoto.description;
+  bigPicture.querySelector('.likes-count').textContent = currentPhoto.likes;
+  bigPicture.querySelector('.social__comment-shown-count').textContent = commentShownCount;
+  bigPicture.querySelector('.social__comment-total-count').textContent = currentPhoto.comments.length;
+  bigPicture.querySelector('.social__caption').textContent = currentPhoto.description;
+
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
   bigPicture.querySelector('.social__comment-count').classList.add('hidden');
@@ -34,7 +47,7 @@ function closeBigPicture (evt) {
 const onPreviewClick = (evt) => {
   if (evt.target.matches('img.picture__img')) {
     evt.preventDefault();
-    openBigPicture();
+    openBigPicture(evt);
   }
 };
 
