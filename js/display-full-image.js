@@ -21,7 +21,8 @@ function openBigPicture () {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-function closeBigPicture () {
+function closeBigPicture (evt) {
+  evt.preventDefault();
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   bigPicture.querySelector('.social__comment-count').classList.remove('hidden');
@@ -32,6 +33,7 @@ function closeBigPicture () {
 
 const onPreviewClick = (evt) => {
   if (evt.target.matches('img.picture__img')) {
+    evt.preventDefault();
     openBigPicture();
   }
 };
