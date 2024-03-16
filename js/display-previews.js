@@ -9,10 +9,11 @@ const previewTemplate = getTemplateElement('picture', 'picture');
 const renderPreviewList = () => {
   const previewListFragment = document.createDocumentFragment();
 
-  photos.forEach(({url, description, likes, comments}) => {
+  photos.forEach(({id, url, description, likes, comments}) => {
     const preview = previewTemplate.cloneNode(true);
     const previewImage = preview.querySelector('.picture__img');
 
+    preview.dataset.id = id;
     previewImage.src = url;
     previewImage.alt = description;
     preview.querySelector('.picture__likes').textContent = likes;
