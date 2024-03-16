@@ -49,8 +49,6 @@ function openBigPicture (evt) {
 
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-  bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
   document.addEventListener('keydown', onDocumentKeydown);
 }
@@ -59,8 +57,6 @@ function closeBigPicture (evt) {
   evt.preventDefault();
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  bigPicture.querySelector('.social__comment-count').classList.remove('hidden');
-  bigPicture.querySelector('.comments-loader').classList.remove('hidden');
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
