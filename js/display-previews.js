@@ -1,7 +1,6 @@
-import {createPhotos} from './create-photos.js';
+import {PHOTOS} from './constants.js';
 import {getTemplateElement} from './util.js';
 
-const photos = createPhotos();
 const previewList = document.querySelector('.pictures');
 const previewTemplate = getTemplateElement('picture', 'picture');
 
@@ -9,7 +8,7 @@ const previewTemplate = getTemplateElement('picture', 'picture');
 const renderPreviewList = () => {
   const previewListFragment = document.createDocumentFragment();
 
-  photos.forEach(({id, url, description, likes, comments}) => {
+  PHOTOS.forEach(({id, url, description, likes, comments}) => {
     const preview = previewTemplate.cloneNode(true);
     const previewImage = preview.querySelector('.picture__img');
 
@@ -26,5 +25,4 @@ const renderPreviewList = () => {
 };
 renderPreviewList();
 
-export {photos};
 export {renderPreviewList};

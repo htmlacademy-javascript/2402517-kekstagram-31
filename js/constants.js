@@ -1,3 +1,5 @@
+import {createPhotos} from './create-photos.js';
+
 const PHOTOS_COUNT = 25;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
@@ -47,5 +49,6 @@ const USER_NAMES = [
 ];
 
 const SHOW_COMMENTS_STEP = 5; // Сколько новых комментариев отображаем при нажатии на кнопку "Загрузить ещё"
+const PHOTOS = createPhotos();
 
-export {USER_NAMES, COMMENT_MESSAGES, PHOTO_DESCRIPTIONS, MAX_DESCRIPTION_SENTENCES, MAX_COMMENTS, MAX_LIKES, MIN_LIKES, PHOTOS_COUNT, SHOW_COMMENTS_STEP};
+export {USER_NAMES, COMMENT_MESSAGES, PHOTO_DESCRIPTIONS, MAX_DESCRIPTION_SENTENCES, MAX_COMMENTS, MAX_LIKES, MIN_LIKES, PHOTOS_COUNT, SHOW_COMMENTS_STEP, PHOTOS};
