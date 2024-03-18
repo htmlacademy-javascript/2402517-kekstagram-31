@@ -69,8 +69,7 @@ function openBigPicture (evt) {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-function closeBigPicture (evt) {
-  evt.preventDefault();
+function closeBigPicture () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   commentShownCount = 0;
@@ -86,5 +85,8 @@ const onPreviewClick = (evt) => {
 };
 
 picturesContainer.addEventListener('click', onPreviewClick);
-bigPictureCancel.addEventListener('click', closeBigPicture);
+bigPictureCancel.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closeBigPicture();
+});
 buttonLoadComments.addEventListener('click', showComments);
