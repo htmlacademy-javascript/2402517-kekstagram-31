@@ -1,11 +1,15 @@
 import {isEscapeKey} from './util.js';
-import {photos} from './display-previews.js';
+import {PHOTOS, SHOW_COMMENTS_STEP} from './constants.js';
 
 const body = document.body;
 const picturesContainer = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
+const commentList = bigPicture.querySelector('.social__comments');
 const commentTemplate = bigPicture.querySelector('.social__comment');
+const buttonLoadComments = bigPicture.querySelector('.comments-loader');
+let renderedComments = [];
+let commentShownCount = 0;
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -14,53 +18,60 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const renderCommentList = (commentsData) => {
-  const commentListFragment = document.createDocumentFragment();
-  const commentList = bigPicture.querySelector('.social__comments');
-  commentList.innerHTML = ''; // удаляет комментарии к фото, написанные в разметке, и с предыдущего открытия
+const renderCommentList = (commentsData) => commentsData.map((commentData) => {
+  const comment = commentTemplate.cloneNode(true);
+  const commentAvatar = comment.querySelector('img');
 
-  commentsData.forEach((commentData) => {
-    const comment = commentTemplate.cloneNode(true);
-    const commentAvatar = comment.querySelector('img');
+  commentAvatar.src = commentData.avatar;
+  commentAvatar.alt = commentData.name;
+  comment.querySelector('.social__text').textContent = commentData.message;
 
-    commentAvatar.src = commentData.avatar;
-    commentAvatar.alt = commentData.name;
-    comment.querySelector('.social__text').textContent = commentData.message;
+  return comment;
+});
 
-    commentListFragment.append(comment);
+const showComments = () => {
+  const nextComments = renderedComments.slice(commentShownCount, commentShownCount + SHOW_COMMENTS_STEP);
+  const nextCommentsFragment = document.createDocumentFragment();
+
+  nextComments.forEach((comment) => {
+    nextCommentsFragment.append(comment);
+    commentShownCount++;
   });
+  commentList.append(nextCommentsFragment);
 
-  commentList.append(commentListFragment);
+  if (commentShownCount >= renderedComments.length) {
+    buttonLoadComments.classList.add('hidden');
+  } else {
+    buttonLoadComments.classList.remove('hidden');
+  }
+
+  bigPicture.querySelector('.social__comment-shown-count').textContent = commentShownCount;
 };
 
 function openBigPicture (evt) {
   const previewId = Number(evt.target.parentNode.dataset.id);
-  const currentPhoto = photos.find((photo) => photo.id === previewId);
+  const currentPhoto = PHOTOS.find((photo) => photo.id === previewId);
   const bigPictureImage = bigPicture.querySelector('.big-picture__img').querySelector('img');
-  const commentShownCount = currentPhoto.comments.length; // Временно так
 
+  commentList.innerHTML = ''; // удаляет комментарии к фото, написанные в разметке, и с предыдущего открытия
   bigPictureImage.src = currentPhoto.url;
-  bigPictureImage.alt = currentPhoto.description;
+  bigPictureImage.alt = 'Фотография пользователя';
   bigPicture.querySelector('.likes-count').textContent = currentPhoto.likes;
-  bigPicture.querySelector('.social__comment-shown-count').textContent = commentShownCount;
   bigPicture.querySelector('.social__comment-total-count').textContent = currentPhoto.comments.length;
   bigPicture.querySelector('.social__caption').textContent = currentPhoto.description;
-  renderCommentList(currentPhoto.comments);
+  renderedComments = renderCommentList(currentPhoto.comments);
+  showComments();
 
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-  bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-function closeBigPicture (evt) {
-  evt.preventDefault();
+function closeBigPicture () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  bigPicture.querySelector('.social__comment-count').classList.remove('hidden');
-  bigPicture.querySelector('.comments-loader').classList.remove('hidden');
+  commentShownCount = 0;
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
@@ -73,4 +84,8 @@ const onPreviewClick = (evt) => {
 };
 
 picturesContainer.addEventListener('click', onPreviewClick);
-bigPictureCancel.addEventListener('click', closeBigPicture);
+bigPictureCancel.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closeBigPicture();
+});
+buttonLoadComments.addEventListener('click', showComments);

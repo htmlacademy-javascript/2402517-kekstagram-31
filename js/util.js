@@ -33,6 +33,4 @@ const extractNumbers = (string) => {
 };
 extractNumbers(-1.5); // Вызов для линтера
 
-export {getRandomInteger};
-export {getTemplateElement};
-export {isEscapeKey};
+export {getRandomInteger, getTemplateElement, isEscapeKey};
