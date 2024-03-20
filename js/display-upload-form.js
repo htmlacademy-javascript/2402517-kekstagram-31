@@ -9,7 +9,10 @@ const buttonCancelOverlay = document.querySelector('.img-upload__cancel');
 const onDocumentKeydown = (evt) => { // в утил?
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeOverlay();
+
+    if (!(evt.target.matches('input.text__hashtags') || evt.target.matches('textarea.text__description'))) {
+      closeOverlay();
+    }
   }
 };
 
