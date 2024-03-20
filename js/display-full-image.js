@@ -11,7 +11,7 @@ const buttonLoadComments = bigPicture.querySelector('.comments-loader');
 let renderedComments = [];
 let commentShownCount = 0;
 
-const onDocumentKeydown = (evt) => {
+const onDocumentKeydown = (evt) => { //в утил?
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();

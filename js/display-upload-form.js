@@ -6,7 +6,7 @@ const inputImageUpload = formImageUpload.querySelector('.img-upload__input');
 const overlayImageUpload = document.querySelector('.img-upload__overlay');
 const buttonCancelOverlay = document.querySelector('.img-upload__cancel');
 
-const onDocumentKeydown = (evt) => {
+const onDocumentKeydown = (evt) => { // в утил?
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeOverlay();
