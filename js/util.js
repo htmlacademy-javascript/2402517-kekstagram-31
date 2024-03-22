@@ -38,4 +38,4 @@ const extractNumbers = (string) => {
 };
 extractNumbers(-1.5); // Вызов для линтера
 
-export {getRandomInteger, getTemplateElement, isEscapeKey, isUniqueArray};
+export {getRandomInteger, getTemplateElement, isEscapeKey, isUniqueArray, extractNumbers};
