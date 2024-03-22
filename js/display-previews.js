@@ -1,4 +1,4 @@
-import {MOCK_PHOTOS} from './constants.js';
+import {MOCK_PHOTOS} from './constants/mock-photos.js';
 import {getTemplateElement} from './util.js';
 
 const previewList = document.querySelector('.pictures');

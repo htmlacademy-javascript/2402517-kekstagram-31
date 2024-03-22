@@ -1,4 +1,4 @@
-import {createPhotos} from './create-photos.js';
+import {createPhotos} from '../create-mock-photos.js';
 
 const PHOTOS_COUNT = 25;
 const MIN_LIKES = 15;
@@ -48,11 +48,6 @@ const USER_NAMES = [
   'Шарлотта'
 ];
 
-const SHOW_COMMENTS_STEP = 5; // Сколько новых комментариев отображаем при нажатии на кнопку "Загрузить ещё"
 const MOCK_PHOTOS = createPhotos();
 
-const MAX_HASHTAGS = 5;
-const MAX_HASHTAG_LENGTH = 19;
-const MAX_DESCRIPTION_LENGTH = 140;
-
-export {USER_NAMES, COMMENT_MESSAGES, PHOTO_DESCRIPTIONS, MAX_DESCRIPTION_SENTENCES, MAX_COMMENTS, MAX_LIKES, MIN_LIKES, PHOTOS_COUNT, SHOW_COMMENTS_STEP, MOCK_PHOTOS, MAX_HASHTAGS, MAX_HASHTAG_LENGTH, MAX_DESCRIPTION_LENGTH};
+export {USER_NAMES, COMMENT_MESSAGES, PHOTO_DESCRIPTIONS, MAX_DESCRIPTION_SENTENCES, MAX_COMMENTS, MAX_LIKES, MIN_LIKES, PHOTOS_COUNT, MOCK_PHOTOS};

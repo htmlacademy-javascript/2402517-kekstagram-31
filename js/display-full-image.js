@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
-import {MOCK_PHOTOS, SHOW_COMMENTS_STEP} from './constants.js';
+import {MOCK_PHOTOS} from './constants/mock-photos.js';
+import {SHOW_COMMENTS_STEP} from './constants/full-image.js';
 
 const body = document.body;
 const picturesContainer = document.querySelector('.pictures');

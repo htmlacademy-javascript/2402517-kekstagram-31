@@ -1,5 +1,5 @@
 import {isUniqueArray} from './util.js';
-import {MAX_HASHTAGS, MAX_HASHTAG_LENGTH, MAX_DESCRIPTION_LENGTH} from './constants.js';
+import {MAX_HASHTAGS, MAX_HASHTAG_LENGTH, MAX_DESCRIPTION_LENGTH} from './constants/upload-form.js';
 
 const formImageUpload = document.querySelector('.img-upload__form');
 const hashtagsField = document.querySelector('.text__hashtags');
