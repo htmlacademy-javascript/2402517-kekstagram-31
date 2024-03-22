@@ -1,5 +1,5 @@
 import {getRandomInteger} from './util.js';
-import * as constant from './constants.js';
+import * as constant from './constants/mock-photos.js';
 
 const generatePhotoDescription = (maxSentences) => {
   const sentencesCount = getRandomInteger(1, maxSentences);

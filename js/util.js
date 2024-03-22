@@ -7,6 +7,11 @@ const getTemplateElement = (templateId, elementClass) => document.querySelector(
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const isUniqueArray = (array) => {
+  const set = new Set(array);
+  return array.length === set.size;
+};
+
 const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 checkLength('1', 1); // Вызов для линтера
 
@@ -33,4 +38,4 @@ const extractNumbers = (string) => {
 };
 extractNumbers(-1.5); // Вызов для линтера
 
-export {getRandomInteger, getTemplateElement, isEscapeKey};
+export {getRandomInteger, getTemplateElement, isEscapeKey, isUniqueArray};
