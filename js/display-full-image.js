@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {PHOTOS, SHOW_COMMENTS_STEP} from './constants.js';
+import {MOCK_PHOTOS, SHOW_COMMENTS_STEP} from './constants.js';
 
 const body = document.body;
 const picturesContainer = document.querySelector('.pictures');
@@ -50,7 +50,7 @@ const showComments = () => {
 
 function openBigPicture (evt) {
   const previewId = Number(evt.target.parentNode.dataset.id);
-  const currentPhoto = PHOTOS.find((photo) => photo.id === previewId);
+  const currentPhoto = MOCK_PHOTOS.find((photo) => photo.id === previewId);
   const bigPictureImage = bigPicture.querySelector('.big-picture__img').querySelector('img');
 
   commentList.innerHTML = ''; // удаляет комментарии к фото, написанные в разметке, и с предыдущего открытия

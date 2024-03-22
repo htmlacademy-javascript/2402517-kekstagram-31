@@ -1,4 +1,4 @@
-import {PHOTOS} from './constants.js';
+import {MOCK_PHOTOS} from './constants.js';
 import {getTemplateElement} from './util.js';
 
 const previewList = document.querySelector('.pictures');
@@ -8,7 +8,7 @@ const previewTemplate = getTemplateElement('picture', 'picture');
 const renderPreviewList = () => {
   const previewListFragment = document.createDocumentFragment();
 
-  PHOTOS.forEach(({id, url, description, likes, comments}) => {
+  MOCK_PHOTOS.forEach(({id, url, description, likes, comments}) => {
     const preview = previewTemplate.cloneNode(true);
     const previewImage = preview.querySelector('.picture__img');
 
