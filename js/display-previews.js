@@ -1,5 +1,5 @@
-import {MOCK_PHOTOS} from './constants/mock-photos.js';
-import {getTemplateElement} from './util.js';
+import { MOCK_PHOTOS } from './constants/mock-photos.js';
+import { getTemplateElement } from './util.js';
 
 const previewList = document.querySelector('.pictures');
 const previewTemplate = getTemplateElement('picture', 'picture');
@@ -25,4 +25,4 @@ const renderPreviewList = () => {
 };
 renderPreviewList();
 
-export {renderPreviewList};
+export { renderPreviewList };
