@@ -93,7 +93,7 @@ const onEffectItemChange = (evt) => {
 
 const resetImageEffect = () => {
   sliderContainer.classList.add('hidden');
-  editableImage.style.filter = 'none';
+  applyEffectFunctions.none();
   noneEffectElement.checked = true;
 };
 
