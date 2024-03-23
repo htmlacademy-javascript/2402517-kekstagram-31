@@ -1,3 +1,4 @@
+import { resetImageEffect } from './edit-effects-upload-image.js';
 import { resetImageScale } from './edit-scale-upload-image.js';
 import { isEscapeKey } from './util.js';
 
@@ -29,6 +30,7 @@ function closeOverlay () {
   body.classList.remove('modal-open');
   inputImageUpload.value = '';
   resetImageScale();
+  resetImageEffect();
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
