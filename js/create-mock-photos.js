@@ -1,4 +1,4 @@
-import {getRandomInteger} from './util.js';
+import { getRandomInteger } from './util.js';
 import * as constant from './constants/mock-photos.js';
 
 const generatePhotoDescription = (maxSentences) => {
@@ -47,4 +47,4 @@ const createPhoto = () => {
 
 const createPhotos = () => Array.from({length: constant.PHOTOS_COUNT}, createPhoto());
 
-export {createPhotos};
+export { createPhotos };
