@@ -1,16 +1,25 @@
-const hoursToMinutes = (stringTime) => stringTime.split(':')[0] * 60 + (+stringTime.split(':')[1]);
+const hoursToMinutes = (stringTime) => {
+  const arrayTime = stringTime.split(':');
+  return arrayTime[0] * 60 + (+arrayTime[1]);
+};
 
-const isMeetingImpossibleAtWorkingDay = (timeStartDayInHours, timeFinishDayInHours, timeStartMeetingInHours, meetingTimeInMinutes) => {
+const isMeetingImpossible = (timeStartDayInHours, timeFinishDayInHours, timeStartMeetingInHours, meetingTimeInMinutes) => {
   const timeStartDayInMinutes = hoursToMinutes(timeStartDayInHours);
   let timeFinishDayInMinutes = hoursToMinutes(timeFinishDayInHours);
-  const timeStartMeetingInMinutes = hoursToMinutes(timeStartMeetingInHours);
+  let timeStartMeetingInMinutes = hoursToMinutes(timeStartMeetingInHours);
 
   if (timeFinishDayInMinutes < timeStartDayInMinutes) {
     timeFinishDayInMinutes += hoursToMinutes('24:00');
+
+    if (timeStartMeetingInMinutes >= 0 && timeStartMeetingInMinutes < timeStartDayInMinutes) {
+      timeStartMeetingInMinutes += hoursToMinutes('24:00');
+    }
   }
 
+  const timeFinishMeetingInMinutes = timeStartMeetingInMinutes + meetingTimeInMinutes;
+
   return timeStartDayInMinutes <= timeStartMeetingInMinutes
-      && timeFinishDayInMinutes >= timeStartMeetingInMinutes + meetingTimeInMinutes;
+      && timeFinishDayInMinutes >= timeFinishMeetingInMinutes;
 };
 
-isMeetingImpossibleAtWorkingDay('8:00', '07:00', '08:00', 1380);
+isMeetingImpossible('22:00', '21:00', '0:0', 1260);
