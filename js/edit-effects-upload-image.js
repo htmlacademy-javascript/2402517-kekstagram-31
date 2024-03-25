@@ -7,7 +7,7 @@ const noneEffectElement = effectsList.querySelector('#effect-none');
 
 let currentEffectName = 'none';
 
-const defaultSliderOptions = {
+const DEFAULT_SLIDER_OPTIONS = {
   range: {
     min: 0,
     max: 100,
@@ -28,7 +28,7 @@ const defaultSliderOptions = {
   },
 };
 
-const sliderOptions = {
+const SLIDER_OPTIONS = {
   none: {},
   chrome: { range: { min: 0, max: 1 }, step: 0.1, start: 1 },
   sepia:  { range: { min: 0, max: 1 }, step: 0.1, start: 1 },
@@ -65,8 +65,8 @@ const applyEffectFunctions = {
 };
 
 sliderContainer.classList.add('hidden');
-effectLevelValue.value = defaultSliderOptions.start;
-noUiSlider.create(sliderElement, defaultSliderOptions);
+effectLevelValue.value = DEFAULT_SLIDER_OPTIONS.start;
+noUiSlider.create(sliderElement, DEFAULT_SLIDER_OPTIONS);
 
 sliderElement.noUiSlider.on('update', () => {
   const sliderValue = sliderElement.noUiSlider.get();
@@ -81,7 +81,7 @@ const onEffectItemChange = (evt) => {
   }
 
   currentEffectName = evt.target.value;
-  const currentSliderOptions = { ...defaultSliderOptions, ...sliderOptions[currentEffectName] };
+  const currentSliderOptions = { ...DEFAULT_SLIDER_OPTIONS, ...SLIDER_OPTIONS[currentEffectName] };
   sliderElement.noUiSlider.updateOptions(currentSliderOptions);
 
   if (currentEffectName === 'none') {
