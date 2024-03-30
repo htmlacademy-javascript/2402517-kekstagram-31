@@ -1,6 +1,7 @@
 import { resetImageEffect } from './edit-effects-upload-image.js';
 import { resetImageScale } from './edit-scale-upload-image.js';
 import { isEscapeKey } from './util.js';
+import { sendFormData } from './api.js';
 
 const body = document.body;
 const formImageUpload = document.querySelector('.img-upload__form');
@@ -37,3 +38,8 @@ function closeOverlay () {
 
 formImageUpload.addEventListener('change', () => openOverlay());
 buttonCancelOverlay.addEventListener('click', () => closeOverlay());
+formImageUpload.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  sendFormData(evt.target);
+  closeOverlay();
+});
