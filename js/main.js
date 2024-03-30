@@ -6,8 +6,13 @@ import './edit-scale-upload-image.js';
 import './edit-effects-upload-image.js';
 import { getData } from './api.js';
 import { savePhotos } from './photo-state.js';
+import { showError } from './error-handler.js';
 
-
-const photos = await getData();
-renderPreviewList(photos);
-savePhotos(photos);
+getData()
+  .then((photos) => {
+    renderPreviewList(photos);
+    savePhotos(photos);
+  })
+  .catch((err) => {
+    showError(err);
+  });
