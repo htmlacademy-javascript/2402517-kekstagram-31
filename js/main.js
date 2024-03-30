@@ -6,7 +6,7 @@ import './edit-scale-upload-image.js';
 import './edit-effects-upload-image.js';
 import { getData } from './api.js';
 import { savePhotos } from './photo-state.js';
-import { showError } from './error-handler.js';
+import { showError } from './display-alert.js';
 
 getData()
   .then((photos) => {
