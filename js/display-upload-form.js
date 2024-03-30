@@ -35,8 +35,5 @@ function closeOverlay () {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-formImageUpload.addEventListener('change', openOverlay);
-buttonCancelOverlay.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  closeOverlay();
-});
+formImageUpload.addEventListener('change', () => openOverlay());
+buttonCancelOverlay.addEventListener('click', () => closeOverlay());
