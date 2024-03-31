@@ -8,7 +8,9 @@ import { isValidForm, resetValidation } from './validate-upload-form.js';
 
 const body = document.body;
 const formImageUpload = document.querySelector('.img-upload__form');
-const inputImageUpload = formImageUpload.querySelector('.img-upload__input');
+const imageUploadField = formImageUpload.querySelector('.img-upload__input');
+const hashtagsField = formImageUpload.querySelector('.text__hashtags');
+const commentField = formImageUpload.querySelector('.text__description');
 const overlayImageUpload = document.querySelector('.img-upload__overlay');
 const buttonCancelOverlay = document.querySelector('.img-upload__cancel');
 
@@ -22,6 +24,12 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
+const resetFormFields = () => {
+  imageUploadField.value = '';
+  hashtagsField.value = '';
+  commentField.value = '';
+};
+
 function openOverlay () {
   overlayImageUpload.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -29,10 +37,11 @@ function openOverlay () {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
+
 function closeOverlay () {
   overlayImageUpload.classList.add('hidden');
   body.classList.remove('modal-open');
-  inputImageUpload.value = '';
+  resetFormFields();
   resetImageScale();
   resetImageEffect();
   resetValidation();
