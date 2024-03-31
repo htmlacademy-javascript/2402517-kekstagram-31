@@ -4,7 +4,7 @@ import { isEscapeKey } from './util.js';
 import { sendFormData } from './api.js';
 import { showCustomAlert } from './display-alert.js';
 import { AlertStatus } from './display-alert.js';
-import { isValidForm } from './validate-upload-form.js';
+import { isValidForm, resetValidation } from './validate-upload-form.js';
 
 const body = document.body;
 const formImageUpload = document.querySelector('.img-upload__form');
@@ -35,6 +35,7 @@ function closeOverlay () {
   inputImageUpload.value = '';
   resetImageScale();
   resetImageEffect();
+  resetValidation();
 
   document.removeEventListener('keydown', onDocumentKeydown);
 }
