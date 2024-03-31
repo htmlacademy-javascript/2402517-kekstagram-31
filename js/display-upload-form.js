@@ -11,6 +11,7 @@ const formImageUpload = document.querySelector('.img-upload__form');
 const imageUploadField = formImageUpload.querySelector('.img-upload__input');
 const hashtagsField = formImageUpload.querySelector('.text__hashtags');
 const commentField = formImageUpload.querySelector('.text__description');
+const submitButton = formImageUpload.querySelector('.img-upload__submit');
 const overlayImageUpload = document.querySelector('.img-upload__overlay');
 const buttonCancelOverlay = document.querySelector('.img-upload__cancel');
 
@@ -30,13 +31,22 @@ const resetFormFields = () => {
   commentField.value = '';
 };
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
 function openOverlay () {
   overlayImageUpload.classList.remove('hidden');
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
 }
-
 
 function closeOverlay () {
   overlayImageUpload.classList.add('hidden');
@@ -57,6 +67,8 @@ formImageUpload.addEventListener('submit', (evt) => {
     return;
   }
 
+  blockSubmitButton();
+
   sendFormData(evt.target)
     .then(() => {
       closeOverlay();
@@ -64,5 +76,6 @@ formImageUpload.addEventListener('submit', (evt) => {
     })
     .catch(() => {
       showCustomAlert(AlertStatus.ERROR);
-    });
+    })
+    .finally(() => unblockSubmitButton());
 });
