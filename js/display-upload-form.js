@@ -4,6 +4,7 @@ import { isEscapeKey } from './util.js';
 import { sendFormData } from './api.js';
 import { showCustomAlert } from './display-alert.js';
 import { AlertStatus } from './display-alert.js';
+import { isValidForm } from './validate-upload-form.js';
 
 const body = document.body;
 const formImageUpload = document.querySelector('.img-upload__form');
@@ -42,6 +43,10 @@ formImageUpload.addEventListener('change', () => openOverlay());
 buttonCancelOverlay.addEventListener('click', () => closeOverlay());
 formImageUpload.addEventListener('submit', (evt) => {
   evt.preventDefault();
+  if (!isValidForm()) {
+    return;
+  }
+
   sendFormData(evt.target)
     .then(() => {
       closeOverlay();
