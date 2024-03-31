@@ -86,4 +86,4 @@ const onPreviewClick = (evt) => {
 
 picturesContainer.addEventListener('click', onPreviewClick);
 bigPictureCancel.addEventListener('click', () => closeBigPicture());
-buttonLoadComments.addEventListener('click', () => showComments);
+buttonLoadComments.addEventListener('click', () => showComments());
