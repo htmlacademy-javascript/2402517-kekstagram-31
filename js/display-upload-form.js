@@ -59,9 +59,7 @@ function closeOverlay () {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-formImageUpload.addEventListener('change', () => openOverlay());
-buttonCancelOverlay.addEventListener('click', () => closeOverlay());
-formImageUpload.addEventListener('submit', (evt) => {
+const onFormImageUploadSubmit = (evt) => {
   evt.preventDefault();
   if (!isValidForm()) {
     return;
@@ -78,4 +76,9 @@ formImageUpload.addEventListener('submit', (evt) => {
       showCustomAlert(AlertStatus.ERROR);
     })
     .finally(() => unblockSubmitButton());
-});
+};
+
+
+formImageUpload.addEventListener('change', () => openOverlay());
+buttonCancelOverlay.addEventListener('click', () => closeOverlay());
+formImageUpload.addEventListener('submit', onFormImageUploadSubmit);
