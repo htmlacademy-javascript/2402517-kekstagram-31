@@ -2,7 +2,8 @@ import { resetImageEffect } from './edit-effects-upload-image.js';
 import { resetImageScale } from './edit-scale-upload-image.js';
 import { isEscapeKey } from './util.js';
 import { sendFormData } from './api.js';
-import { showSuccessAlert } from './display-alert.js';
+import { showCustomAlert } from './display-alert.js';
+import { AlertStatus } from './display-alert.js';
 
 const body = document.body;
 const formImageUpload = document.querySelector('.img-upload__form');
@@ -44,6 +45,9 @@ formImageUpload.addEventListener('submit', (evt) => {
   sendFormData(evt.target)
     .then(() => {
       closeOverlay();
-      showSuccessAlert();
+      showCustomAlert(AlertStatus.SUCCESS);
+    })
+    .catch(() => {
+      showCustomAlert(AlertStatus.ERROR);
     });
 });
