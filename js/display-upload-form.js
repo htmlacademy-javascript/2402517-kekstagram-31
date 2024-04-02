@@ -19,7 +19,9 @@ const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
 
-    if (!(evt.target.matches('input.text__hashtags') || evt.target.matches('textarea.text__description'))) {
+    const errorAlert = document.querySelector('.error');
+
+    if (!(evt.target.matches('input.text__hashtags') || evt.target.matches('textarea.text__description') || errorAlert)) {
       closeOverlay();
     }
   }
