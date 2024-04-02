@@ -5,14 +5,19 @@ import './validate-upload-form.js';
 import './edit-scale-upload-image.js';
 import './edit-effects-upload-image.js';
 import { getData } from './api.js';
-import { savePhotos } from './photo-state.js';
+import { copyPhotosArray, savePhotos } from './photo-state.js';
 import { showError } from './display-alert.js';
 
+let photos;
+
 getData()
-  .then((photos) => {
+  .then((newPhotos) => {
+    savePhotos(newPhotos);
+    photos = copyPhotosArray();
     renderPreviewList(photos);
-    savePhotos(photos);
   })
   .catch((err) => {
     showError(err);
   });
+
+

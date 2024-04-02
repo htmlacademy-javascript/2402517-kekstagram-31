@@ -1,9 +1,11 @@
-let photos = [];
+let photosData = [];
 
 const savePhotos = (newPhotos) => {
-  photos = newPhotos;
+  photosData = newPhotos;
 };
 
-const getPhotoById = (id) => photos.find((photo) => photo.id === id);
+const getPhotoById = (id) => photosData.find((photo) => photo.id === id);
 
-export { savePhotos, getPhotoById };
+const copyPhotosArray = () => photosData.slice();
+
+export { savePhotos, getPhotoById, copyPhotosArray };
