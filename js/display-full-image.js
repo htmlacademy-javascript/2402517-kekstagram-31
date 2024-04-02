@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { MOCK_PHOTOS } from './constants/mock-photos.js';
+import { getPhotoById } from './photo-state.js';
 import { SHOW_COMMENTS_STEP } from './constants/full-image.js';
 
 const body = document.body;
@@ -12,7 +12,7 @@ const buttonLoadComments = bigPicture.querySelector('.comments-loader');
 let renderedComments = [];
 let commentShownCount = 0;
 
-const onDocumentKeydown = (evt) => { //в утил?
+const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
@@ -51,7 +51,7 @@ const showComments = () => {
 
 function openBigPicture (evt) {
   const previewId = Number(evt.target.parentNode.dataset.id);
-  const currentPhoto = MOCK_PHOTOS.find((photo) => photo.id === previewId);
+  const currentPhoto = getPhotoById(previewId);
   const bigPictureImage = bigPicture.querySelector('.big-picture__img').querySelector('img');
 
   commentList.innerHTML = ''; // удаляет комментарии к фото, написанные в разметке, и с предыдущего открытия
@@ -85,8 +85,5 @@ const onPreviewClick = (evt) => {
 };
 
 picturesContainer.addEventListener('click', onPreviewClick);
-bigPictureCancel.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  closeBigPicture();
-});
-buttonLoadComments.addEventListener('click', showComments);
+bigPictureCancel.addEventListener('click', () => closeBigPicture());
+buttonLoadComments.addEventListener('click', () => showComments());

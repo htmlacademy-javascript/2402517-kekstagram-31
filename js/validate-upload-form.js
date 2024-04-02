@@ -53,10 +53,7 @@ pristine.addValidator(
   `длина комментария больше ${MAX_DESCRIPTION_LENGTH} символов`
 );
 
-formImageUpload.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
+const isValidForm = () => pristine.validate();
+const resetValidation = () => pristine.reset();
 
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
+export { isValidForm, resetValidation };
