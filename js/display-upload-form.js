@@ -2,18 +2,28 @@ import { resetImageEffect } from './edit-effects-upload-image.js';
 import { resetImageScale } from './edit-scale-upload-image.js';
 import { isEscapeKey } from './util.js';
 import { sendFormData } from './api.js';
-import { showCustomAlert } from './display-alert.js';
+import { showCustomAlert, showError } from './display-alert.js';
 import { AlertStatus } from './display-alert.js';
 import { isValidForm, resetValidation } from './validate-upload-form.js';
 
 const body = document.body;
-const formImageUpload = document.querySelector('.img-upload__form');
-const imageUploadField = formImageUpload.querySelector('.img-upload__input');
-const hashtagsField = formImageUpload.querySelector('.text__hashtags');
-const commentField = formImageUpload.querySelector('.text__description');
-const submitButton = formImageUpload.querySelector('.img-upload__submit');
-const overlayImageUpload = document.querySelector('.img-upload__overlay');
-const buttonCancelOverlay = document.querySelector('.img-upload__cancel');
+const imageUploadForm = document.querySelector('.img-upload__form');
+const imageUploadField = imageUploadForm.querySelector('.img-upload__input');
+const hashtagsField = imageUploadForm.querySelector('.text__hashtags');
+const commentField = imageUploadForm.querySelector('.text__description');
+const submitButton = imageUploadForm.querySelector('.img-upload__submit');
+const imageUploadPreview = imageUploadForm.querySelector('.img-upload__preview img');
+const imageUploadEffectPreviews = imageUploadForm.querySelectorAll('.effects__preview');
+const imageUploadOverlay = imageUploadForm.querySelector('.img-upload__overlay');
+const buttonCancelOverlay = imageUploadOverlay.querySelector('.img-upload__cancel');
+const IMAGE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/bmp',
+  'image/webp',
+  'image/svg+xml'
+];
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -44,14 +54,14 @@ const unblockSubmitButton = () => {
 };
 
 function openOverlay () {
-  overlayImageUpload.classList.remove('hidden');
+  imageUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
 
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
 function closeOverlay () {
-  overlayImageUpload.classList.add('hidden');
+  imageUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   resetFormFields();
   resetImageScale();
@@ -61,7 +71,29 @@ function closeOverlay () {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-const onFormImageUploadSubmit = (evt) => {
+const onImageUploadFormChange = () => {
+  const file = imageUploadField.files[0];
+  const fileType = file.type;
+  const isCorrectType = IMAGE_TYPES.includes(fileType);
+
+  if (!isCorrectType) {
+    const customTypeError = { 'message': 'Неподходящий тип файла. Выберите изображение' };
+    showError(customTypeError);
+    imageUploadField.value = '';
+
+    return;
+  }
+
+  const url = URL.createObjectURL(file);
+  imageUploadPreview.src = url;
+  imageUploadEffectPreviews.forEach((element) => {
+    element.style.backgroundImage = `url(${url})`;
+  });
+
+  openOverlay();
+};
+
+const onImageUploadFormSubmit = (evt) => {
   evt.preventDefault();
   if (!isValidForm()) {
     return;
@@ -81,6 +113,6 @@ const onFormImageUploadSubmit = (evt) => {
 };
 
 
-formImageUpload.addEventListener('change', () => openOverlay());
+imageUploadForm.addEventListener('change', onImageUploadFormChange);
 buttonCancelOverlay.addEventListener('click', () => closeOverlay());
-formImageUpload.addEventListener('submit', onFormImageUploadSubmit);
+imageUploadForm.addEventListener('submit', onImageUploadFormSubmit);
