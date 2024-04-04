@@ -44,15 +44,15 @@ const swichFilter = (filteredPreviews) => {
 
 const applyFilters = debounce(swichFilter, APPLY_FILTERS_DELAY);
 
+const FilterActions = {
+  'filter-default': (photos) => applyFilters(photos),
+  'filter-random': (photos) => applyFilters(getUniqueRandomPhotos(photos, RANDOM_PHOTOS_COUNT)),
+  'filter-discussed': (photos) => applyFilters(getSortedDiscussedPhotos(photos))
+};
+
 const addFilters = () => {
   showFilters();
   const photosDublicate = copyPhotosArray();
-
-  const FilterActions = {
-    'filter-default': () => applyFilters(photosDublicate),
-    'filter-random': () => applyFilters(getUniqueRandomPhotos(photosDublicate, RANDOM_PHOTOS_COUNT)),
-    'filter-discussed': () => applyFilters(getSortedDiscussedPhotos(photosDublicate))
-  };
 
   const onFilterClick = (evt) => {
     const activeFilterButton = filters.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
@@ -71,7 +71,7 @@ const addFilters = () => {
       activeFilterButton.classList.remove(ACTIVE_BUTTON_CLASS);
     }
 
-    FilterActions[`${currentFilterButton.id}`]();
+    FilterActions[`${currentFilterButton.id}`](photosDublicate);
   };
 
   filters.addEventListener('click', onFilterClick);
