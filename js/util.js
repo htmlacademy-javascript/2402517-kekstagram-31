@@ -12,6 +12,27 @@ const isUniqueArray = (array) => {
   return array.length === set.size;
 };
 
+const extractNumbers = (string) => {
+  let result = '';
+  string = string.toString();
+
+  for (let i = 0; i < string.length; i++) {
+    const number = parseInt(string[i], 10);
+    result += !isNaN(number) ? number : '';
+  }
+
+  return parseInt(result, 10);
+};
+
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
 checkLength('1', 1); // Вызов для линтера
 
@@ -25,17 +46,4 @@ const checkPalindrome = (string) => {
 };
 checkPalindrome('Лёша на полке клопа нашёл '); // Вызов для линтера
 
-const extractNumbers = (string) => {
-  let result = '';
-  string = string.toString();
-
-  for (let i = 0; i < string.length; i++) {
-    const number = parseInt(string[i], 10);
-    result += !isNaN(number) ? number : '';
-  }
-
-  return parseInt(result, 10);
-};
-extractNumbers(-1.5); // Вызов для линтера
-
-export { getRandomInteger, getTemplateElement, isEscapeKey, isUniqueArray, extractNumbers };
+export { getRandomInteger, getTemplateElement, isEscapeKey, isUniqueArray, extractNumbers, debounce };
