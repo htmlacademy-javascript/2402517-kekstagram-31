@@ -76,18 +76,19 @@ const onImageUploadFormChange = () => {
   const fileType = file.type;
   const isCorrectType = IMAGE_TYPES.includes(fileType);
 
-  if (isCorrectType) {
-    const url = URL.createObjectURL(file);
-    imageUploadPreview.src = url;
-    imageUploadEffectPreviews.forEach((element) => {
-      element.style.backgroundImage = `url(${url})`;
-    });
-  } else {
+  if (!isCorrectType) {
     const customTypeError = { 'message': 'Неподходящий тип файла. Выберите изображение' };
     showError(customTypeError);
     imageUploadField.value = '';
+
     return;
   }
+
+  const url = URL.createObjectURL(file);
+  imageUploadPreview.src = url;
+  imageUploadEffectPreviews.forEach((element) => {
+    element.style.backgroundImage = `url(${url})`;
+  });
 
   openOverlay();
 };
