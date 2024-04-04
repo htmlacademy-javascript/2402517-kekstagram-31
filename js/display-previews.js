@@ -22,4 +22,9 @@ const renderPreviewList = (photos) => {
   previewList.append(previewListFragment);
 };
 
-export { renderPreviewList };
+const cleanPreviewList = () => {
+  const previews = previewList.querySelectorAll('a.picture');
+  previews.forEach((element) => element.remove());
+};
+
+export { renderPreviewList, cleanPreviewList };
