@@ -1,4 +1,4 @@
-import { getRandomInteger } from './util.js';
+import { getRandomInteger, debounce } from './util.js';
 import { renderPreviewList, cleanPreviewList } from './display-previews.js';
 import { copyPhotosArray } from './photo-state.js';
 
@@ -53,22 +53,24 @@ const addFilters = () => {
   };
 
   const onFilterClick = (evt) => {
-    if (evt.target.matches('button.img-filters__button')) {
-      const activeFilterButton = filters.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
-      const currentFilterButton = evt.target;
+    const activeFilterButton = filters.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
+    const currentFilterButton = evt.target;
 
-      if (currentFilterButton.id === activeFilterButton.id && !(activeFilterButton.id === RANDOM_FILTER_ID)) {
-        return;
-      }
-
-      if (!currentFilterButton.classList.contains(ACTIVE_BUTTON_CLASS)) {
-        currentFilterButton.classList.add(ACTIVE_BUTTON_CLASS);
-        activeFilterButton.classList.remove(ACTIVE_BUTTON_CLASS);
-      }
-
-      cleanPreviewList();
-      FilterActions[`${currentFilterButton.id}`]();
+    if (!evt.target.matches('button.img-filters__button')) {
+      return;
     }
+
+    if (currentFilterButton.id === activeFilterButton.id && !(activeFilterButton.id === RANDOM_FILTER_ID)) {
+      return;
+    }
+
+    if (!currentFilterButton.classList.contains(ACTIVE_BUTTON_CLASS)) {
+      currentFilterButton.classList.add(ACTIVE_BUTTON_CLASS);
+      activeFilterButton.classList.remove(ACTIVE_BUTTON_CLASS);
+    }
+
+    cleanPreviewList();
+    FilterActions[`${currentFilterButton.id}`]();
   };
 
   if (!filters.classList.contains('.img-filters--inactive')) {
