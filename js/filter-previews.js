@@ -2,9 +2,10 @@ import { getRandomInteger, debounce } from './util.js';
 import { renderPreviewList, cleanPreviewList } from './display-previews.js';
 import { copyPhotosArray } from './photo-state.js';
 
-const RANDOM_FILTER_ID = 'filter-random';
+const RANDOM_PHOTOS_FILTER_ID = 'filter-random';
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
 const RANDOM_PHOTOS_COUNT = 10;
+const APPLY_FILTERS_DELAY = 500;
 const filters = document.querySelector('.img-filters');
 
 const showFilters = () => filters.classList.remove('img-filters--inactive');
@@ -28,7 +29,7 @@ const getUniqueRandomPhotos = (photos, randomPhotosCount) => {
 };
 
 let sortedPhotos = [];
-const getSortiedDiscussedPhotos = (photos) => {
+const getSortedDiscussedPhotos = (photos) => {
   if (!(sortedPhotos.length === photos.length)) {
     sortedPhotos = photos.toSorted((a, b) => b.comments.length - a.comments.length);
   }
@@ -36,20 +37,21 @@ const getSortiedDiscussedPhotos = (photos) => {
   return sortedPhotos;
 };
 
+const swichFilter = (filteredPreviews) => {
+  cleanPreviewList();
+  renderPreviewList(filteredPreviews);
+};
+
+const applyFilters = debounce(swichFilter, APPLY_FILTERS_DELAY);
+
 const addFilters = () => {
   showFilters();
   const photosDublicate = copyPhotosArray();
 
   const FilterActions = {
-    'filter-default': () => {
-      renderPreviewList(photosDublicate);
-    },
-    'filter-random': () => {
-      renderPreviewList(getUniqueRandomPhotos(photosDublicate, RANDOM_PHOTOS_COUNT));
-    },
-    'filter-discussed': () => {
-      renderPreviewList(getSortiedDiscussedPhotos(photosDublicate));
-    }
+    'filter-default': () => applyFilters(photosDublicate),
+    'filter-random': () => applyFilters(getUniqueRandomPhotos(photosDublicate, RANDOM_PHOTOS_COUNT)),
+    'filter-discussed': () => applyFilters(getSortedDiscussedPhotos(photosDublicate))
   };
 
   const onFilterClick = (evt) => {
@@ -60,7 +62,7 @@ const addFilters = () => {
       return;
     }
 
-    if (currentFilterButton.id === activeFilterButton.id && !(activeFilterButton.id === RANDOM_FILTER_ID)) {
+    if (currentFilterButton.id === activeFilterButton.id && !(activeFilterButton.id === RANDOM_PHOTOS_FILTER_ID)) {
       return;
     }
 
@@ -69,13 +71,10 @@ const addFilters = () => {
       activeFilterButton.classList.remove(ACTIVE_BUTTON_CLASS);
     }
 
-    cleanPreviewList();
     FilterActions[`${currentFilterButton.id}`]();
   };
 
-  if (!filters.classList.contains('.img-filters--inactive')) {
-    filters.addEventListener('click', onFilterClick);
-  }
+  filters.addEventListener('click', onFilterClick);
 };
 
 export { addFilters };
