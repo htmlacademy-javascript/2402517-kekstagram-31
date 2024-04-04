@@ -55,12 +55,12 @@ const addFilters = () => {
   const photosDublicate = copyPhotosArray();
 
   const onFilterClick = (evt) => {
-    const activeFilterButton = filters.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
-    const currentFilterButton = evt.target;
-
     if (!evt.target.matches('button.img-filters__button')) {
       return;
     }
+
+    const activeFilterButton = filters.querySelector(`.${ACTIVE_BUTTON_CLASS}`);
+    const currentFilterButton = evt.target;
 
     if (currentFilterButton.id === activeFilterButton.id && !(activeFilterButton.id === RANDOM_PHOTOS_FILTER_ID)) {
       return;
