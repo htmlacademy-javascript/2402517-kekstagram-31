@@ -1,12 +1,3 @@
-const sliderContainer = document.querySelector('.img-upload__effect-level');
-const sliderElement = sliderContainer.querySelector('.effect-level__slider');
-const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
-const editableImage = document.querySelector('.img-upload__preview img');
-const effectsList = document.querySelector('.effects__list');
-const noneEffectElement = effectsList.querySelector('#effect-none');
-
-let currentEffectName = 'none';
-
 const DEFAULT_SLIDER_OPTIONS = {
   range: {
     min: 0,
@@ -37,6 +28,14 @@ const SLIDER_OPTIONS = {
   heat:   { range: { min: 1, max: 3 }, step: 0.1, start: 3 },
 };
 
+const sliderContainer = document.querySelector('.img-upload__effect-level');
+const slider = sliderContainer.querySelector('.effect-level__slider');
+const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
+const editableImage = document.querySelector('.img-upload__preview img');
+const effectsList = document.querySelector('.effects__list');
+const noneEffectRadioInput = effectsList.querySelector('#effect-none');
+
+let currentEffectName = 'none';
 
 const applyEffectFunctions = {
   none: () => {
@@ -66,10 +65,10 @@ const applyEffectFunctions = {
 
 sliderContainer.classList.add('hidden');
 effectLevelValue.value = DEFAULT_SLIDER_OPTIONS.start;
-noUiSlider.create(sliderElement, DEFAULT_SLIDER_OPTIONS);
+noUiSlider.create(slider, DEFAULT_SLIDER_OPTIONS);
 
-sliderElement.noUiSlider.on('update', () => {
-  const sliderValue = sliderElement.noUiSlider.get();
+slider.noUiSlider.on('update', () => {
+  const sliderValue = slider.noUiSlider.get();
   effectLevelValue.value = sliderValue;
   const effectFunction = applyEffectFunctions[currentEffectName];
   effectFunction(sliderValue);
@@ -82,7 +81,7 @@ const onEffectItemChange = (evt) => {
 
   currentEffectName = evt.target.value;
   const currentSliderOptions = { ...DEFAULT_SLIDER_OPTIONS, ...SLIDER_OPTIONS[currentEffectName] };
-  sliderElement.noUiSlider.updateOptions(currentSliderOptions);
+  slider.noUiSlider.updateOptions(currentSliderOptions);
 
   if (currentEffectName === 'none') {
     sliderContainer.classList.add('hidden');
@@ -94,7 +93,7 @@ const onEffectItemChange = (evt) => {
 const resetImageEffect = () => {
   sliderContainer.classList.add('hidden');
   applyEffectFunctions.none();
-  noneEffectElement.checked = true;
+  noneEffectRadioInput.checked = true;
 };
 
 effectsList.addEventListener('change', onEffectItemChange);

@@ -1,7 +1,7 @@
-import { isEscapeKey } from './util.js';
-import { getPhotoById } from './photo-state.js';
-import { SHOW_COMMENTS_STEP } from './constants/full-image.js';
+import { isEscapeKey } from '../util.js';
+import { getPhotoById } from '../data/photo-state.js';
 
+const SHOW_COMMENTS_STEP = 5;
 const body = document.body;
 const picturesContainer = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');

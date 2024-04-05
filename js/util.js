@@ -33,17 +33,4 @@ const debounce = (callback, timeoutDelay = 500) => {
   };
 };
 
-const checkLength = (string = '', maxLength = 1) => string.length <= maxLength;
-checkLength('1', 1); // Вызов для линтера
-
-const checkPalindrome = (string) => {
-  let reverseString = '';
-  for (let i = string.length - 1; i >= 0; i--) {
-    reverseString += string[i];
-  }
-
-  return string.toLowerCase().replaceAll(' ', '') === reverseString.toLowerCase().replaceAll(' ', '');
-};
-checkPalindrome('Лёша на полке клопа нашёл '); // Вызов для линтера
-
 export { getRandomInteger, getTemplateElement, isEscapeKey, isUniqueArray, extractNumbers, debounce };

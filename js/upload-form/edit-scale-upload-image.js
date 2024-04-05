@@ -1,5 +1,5 @@
-import { DEFAULT_IMAGE_SCALE, MAX_IMAGE_SCALE, MIN_IMAGE_SCALE, SCALE_STEP } from './constants/upload-form.js';
-import { extractNumbers } from './util.js';
+import { DEFAULT_IMAGE_SCALE, MAX_IMAGE_SCALE, MIN_IMAGE_SCALE, SCALE_STEP } from './constants-upload-form.js';
+import { extractNumbers } from '../util.js';
 
 const formImageUpload = document.querySelector('.img-upload__form');
 const editableImage = formImageUpload.querySelector('.img-upload__preview img');
