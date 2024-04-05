@@ -1,9 +1,8 @@
 import { resetImageEffect } from './edit-effects-upload-image.js';
 import { resetImageScale } from './edit-scale-upload-image.js';
-import { isEscapeKey } from './util.js';
-import { sendFormData } from './api.js';
-import { showCustomAlert, showError } from './display-alert.js';
-import { AlertStatus } from './display-alert.js';
+import { isEscapeKey } from '../util.js';
+import { sendFormData } from '../data/api.js';
+import { showCustomAlert, showError, AlertStatus } from './display-alert.js';
 import { isValidForm, resetValidation } from './validate-upload-form.js';
 
 const body = document.body;

@@ -1,5 +1,5 @@
-import { getTemplateElement } from './util.js';
-import { isEscapeKey } from './util.js';
+import { getTemplateElement } from '../util.js';
+import { isEscapeKey } from '../util.js';
 
 const ALERT_TIME = 5000;
 const AlertStatus = {
@@ -21,7 +21,6 @@ const showError = (err) => {
 const showCustomAlert = (status = AlertStatus.SUCCESS) => { // status в контексте разметки
   const customAlert = getTemplateElement(status, status).cloneNode(true);
   body.append(customAlert);
-
 
   const onDocumentKeydown = (evt) => {
     if (isEscapeKey(evt)) {
@@ -48,6 +47,5 @@ const showCustomAlert = (status = AlertStatus.SUCCESS) => { // status в кон�
     document.removeEventListener('keydown', onDocumentKeydown);
   }
 };
-
 
 export { showError, showCustomAlert, AlertStatus };

@@ -1,7 +1,7 @@
-import { isEscapeKey } from './util.js';
-import { getPhotoById } from './photo-state.js';
-import { SHOW_COMMENTS_STEP } from './constants/full-image.js';
+import { isEscapeKey } from '../util.js';
+import { getPhotoById } from '../data/photo-state.js';
 
+const SHOW_COMMENTS_STEP = 5;
 const body = document.body;
 const picturesContainer = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
@@ -49,10 +49,9 @@ const showComments = () => {
   bigPicture.querySelector('.social__comment-shown-count').textContent = commentShownCount;
 };
 
-function openBigPicture (evt) {
-  const previewId = Number(evt.target.parentNode.dataset.id);
-  const currentPhoto = getPhotoById(previewId);
-  const bigPictureImage = bigPicture.querySelector('.big-picture__img').querySelector('img');
+function openBigPicture (previewId) {
+  const currentPhoto = getPhotoById(+previewId);
+  const bigPictureImage = bigPicture.querySelector('.big-picture__img img');
 
   commentList.innerHTML = ''; // удаляет комментарии к фото, написанные в разметке, и с предыдущего открытия
   bigPictureImage.src = currentPhoto.url;
@@ -78,10 +77,16 @@ function closeBigPicture () {
 }
 
 const onPreviewClick = (evt) => {
-  if (evt.target.matches('img.picture__img')) {
-    evt.preventDefault();
-    openBigPicture(evt);
+  const targetPreview = evt.target.closest('.picture');
+
+  if(!targetPreview) {
+    return;
   }
+
+  evt.preventDefault();
+  const targetPreviewId = targetPreview.dataset.id;
+
+  openBigPicture(targetPreviewId);
 };
 
 picturesContainer.addEventListener('click', onPreviewClick);

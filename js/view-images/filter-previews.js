@@ -1,6 +1,6 @@
-import { getRandomInteger, debounce } from './util.js';
+import { getRandomInteger, debounce } from '../util.js';
 import { renderPreviewList, cleanPreviewList } from './display-previews.js';
-import { copyPhotosArray } from './photo-state.js';
+import { copyPhotosArray } from '../data/photo-state.js';
 
 const RANDOM_PHOTOS_FILTER_ID = 'filter-random';
 const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
@@ -11,21 +11,23 @@ const filters = document.querySelector('.img-filters');
 const showFilters = () => filters.classList.remove('img-filters--inactive');
 
 const getUniqueRandomPhotos = (photos, randomPhotosCount) => {
-  if (photos.length > randomPhotosCount) {
-    const uniqueRandomPhotoIndexes = [];
-
-    for (let i = 0; i < randomPhotosCount; i++) {
-      const randomPhotoIndex = getRandomInteger(0, photos.length - 1);
-
-      if (!uniqueRandomPhotoIndexes.includes(randomPhotoIndex)) {
-        uniqueRandomPhotoIndexes.push(randomPhotoIndex);
-      } else {
-        i--;
-      }
-    }
-
-    return uniqueRandomPhotoIndexes.map((index) => photos[index]);
+  if (photos.length <= randomPhotosCount) {
+    return;
   }
+
+  const uniqueRandomPhotoIndexes = [];
+
+  for (let i = 0; i < randomPhotosCount; i++) {
+    const randomPhotoIndex = getRandomInteger(0, photos.length - 1);
+
+    if (!uniqueRandomPhotoIndexes.includes(randomPhotoIndex)) {
+      uniqueRandomPhotoIndexes.push(randomPhotoIndex);
+    } else {
+      i--;
+    }
+  }
+
+  return uniqueRandomPhotoIndexes.map((index) => photos[index]);
 };
 
 let sortedPhotos = [];
@@ -44,10 +46,24 @@ const swichFilter = (filteredPreviews) => {
 
 const applyFilters = debounce(swichFilter, APPLY_FILTERS_DELAY);
 
+const FilterActionById = {
+  'filter-default': 'sortDefault',
+  'filter-random': 'sortRandom',
+  'filter-discussed': 'sortDiscussed'
+};
+
 const FilterActions = {
-  'filter-default': (photos) => applyFilters(photos),
-  'filter-random': (photos) => applyFilters(getUniqueRandomPhotos(photos, RANDOM_PHOTOS_COUNT)),
-  'filter-discussed': (photos) => applyFilters(getSortedDiscussedPhotos(photos))
+  sortDefault(photos) {
+    applyFilters(photos);
+  },
+
+  sortRandom(photos) {
+    applyFilters(getUniqueRandomPhotos(photos, RANDOM_PHOTOS_COUNT));
+  },
+
+  sortDiscussed(photos) {
+    applyFilters(getSortedDiscussedPhotos(photos));
+  }
 };
 
 const addFilters = () => {
@@ -71,7 +87,8 @@ const addFilters = () => {
       activeFilterButton.classList.remove(ACTIVE_BUTTON_CLASS);
     }
 
-    FilterActions[`${currentFilterButton.id}`](photosDublicate);
+    const filterAction = FilterActionById[`${currentFilterButton.id}`];
+    FilterActions[`${filterAction}`](photosDublicate);
   };
 
   filters.addEventListener('click', onFilterClick);

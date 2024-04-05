@@ -1,4 +1,4 @@
-import { getTemplateElement } from './util.js';
+import { getTemplateElement } from '../util.js';
 
 const previewList = document.querySelector('.pictures');
 const previewTemplate = getTemplateElement('picture', 'picture');
