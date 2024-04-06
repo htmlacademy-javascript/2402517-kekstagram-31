@@ -33,18 +33,18 @@ const getUniqueRandomPhotos = (photos, randomPhotosCount) => {
 let sortedPhotos = [];
 const getSortedDiscussedPhotos = (photos) => {
   if (!(sortedPhotos.length === photos.length)) {
-    sortedPhotos = photos.toSorted((a, b) => b.comments.length - a.comments.length);
+    sortedPhotos = photos.toSorted((photo1, photo2) => photo2.comments.length - photo1.comments.length);
   }
 
   return sortedPhotos;
 };
 
-const swichFilter = (filteredPreviews) => {
+const switchFilter = (filteredPreviews) => {
   cleanPreviewList();
   renderPreviewList(filteredPreviews);
 };
 
-const applyFilters = debounce(swichFilter, APPLY_FILTERS_DELAY);
+const applyFilters = debounce(switchFilter, APPLY_FILTERS_DELAY);
 
 const FilterActionById = {
   'filter-default': 'sortDefault',
@@ -68,7 +68,7 @@ const FilterActions = {
 
 const addFilters = () => {
   showFilters();
-  const photosDublicate = copyPhotosArray();
+  const photosDuplicate = copyPhotosArray();
 
   const onFilterClick = (evt) => {
     if (!evt.target.matches('button.img-filters__button')) {
@@ -88,7 +88,7 @@ const addFilters = () => {
     }
 
     const filterAction = FilterActionById[`${currentFilterButton.id}`];
-    FilterActions[`${filterAction}`](photosDublicate);
+    FilterActions[`${filterAction}`](photosDuplicate);
   };
 
   filters.addEventListener('click', onFilterClick);

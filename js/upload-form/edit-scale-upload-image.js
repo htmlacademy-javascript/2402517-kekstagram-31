@@ -1,4 +1,4 @@
-import { DEFAULT_IMAGE_SCALE, MAX_IMAGE_SCALE, MIN_IMAGE_SCALE, SCALE_STEP } from './constants-upload-form.js';
+import { DEFAULT_IMAGE_SCALE, MAX_IMAGE_SCALE, MIN_IMAGE_SCALE, SCALE_STEP } from './constants.js';
 import { extractNumbers } from '../util.js';
 
 const formImageUpload = document.querySelector('.img-upload__form');

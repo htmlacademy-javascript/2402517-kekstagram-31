@@ -7,9 +7,9 @@ const getTemplateElement = (templateId, elementClass) => document.querySelector(
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const isUniqueArray = (array) => {
-  const set = new Set(array);
-  return array.length === set.size;
+const isUniqueArray = (elements) => {
+  const set = new Set(elements);
+  return elements.length === set.size;
 };
 
 const extractNumbers = (string) => {
