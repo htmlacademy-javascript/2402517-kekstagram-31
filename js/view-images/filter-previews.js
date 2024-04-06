@@ -33,7 +33,7 @@ const getUniqueRandomPhotos = (photos, randomPhotosCount) => {
 let sortedPhotos = [];
 const getSortedDiscussedPhotos = (photos) => {
   if (!(sortedPhotos.length === photos.length)) {
-    sortedPhotos = photos.toSorted((a, b) => b.comments.length - a.comments.length);
+    sortedPhotos = photos.toSorted((photo1, photo2) => photo2.comments.length - photo1.comments.length);
   }
 
   return sortedPhotos;
