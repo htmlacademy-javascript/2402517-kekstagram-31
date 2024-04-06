@@ -5,6 +5,15 @@ import { sendFormData } from '../data/api.js';
 import { showCustomAlert, showError, AlertStatus } from './display-alert.js';
 import { isValidForm, resetValidation } from './validate-upload-form.js';
 
+const IMAGE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/bmp',
+  'image/webp',
+  'image/svg+xml'
+];
+
 const body = document.body;
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadField = imageUploadForm.querySelector('.img-upload__input');
@@ -15,14 +24,6 @@ const imageUploadPreview = imageUploadForm.querySelector('.img-upload__preview i
 const imageUploadEffectPreviews = imageUploadForm.querySelectorAll('.effects__preview');
 const imageUploadOverlay = imageUploadForm.querySelector('.img-upload__overlay');
 const buttonCancelOverlay = imageUploadOverlay.querySelector('.img-upload__cancel');
-const IMAGE_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/bmp',
-  'image/webp',
-  'image/svg+xml'
-];
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
